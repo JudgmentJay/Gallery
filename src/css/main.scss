@@ -1,0 +1,69 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	text-size-adjust: 100%;
+}
+
+body {
+	font-size: 62.5%;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	line-height: 1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: inherit;
+	font-weight: 400;
+}
+
+article,
+aside,
+footer,
+header,
+nav,
+section {
+	display: block;
+}
+
+ul,
+ol {
+	margin: 0 0 0 18px;
+}
+
+img {
+	border: 0;
+	display: block;
+	max-width: 100%;
+}
+
+a,
+button {
+	color: inherit;
+}
+
+a {
+	text-decoration: none;
+}
+
+button {
+	background: none;
+	border: 0;
+	cursor: pointer;
+	font: inherit;
+	-webkit-font-smoothing: inherit;
+	letter-spacing: inherit;
+	overflow: visible;
+}
+
+::-moz-focus-inner {
+	border: 0;
+}

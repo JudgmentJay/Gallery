@@ -1,0 +1,21 @@
+{
+	"extends": "stylelint-config-standard",
+	"rules": {
+		"declaration-empty-line-before": [
+			"always", {
+				except: [
+					"after-declaration",
+					"first-nested",
+				],
+				ignore: [
+					"after-comment",
+					"after-declaration",
+					"inside-single-line-block",
+				],
+			}
+		],
+		"indentation": "tab",
+		"no-missing-end-of-source-newline": null,
+		"selector-pseudo-element-colon-notation": "single"
+	}
+}
