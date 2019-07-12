@@ -1,5 +1,5 @@
-const userId = '156592040%40N05'
-const apiKey = '59f786b10e08594cc3b7afc024649f20'
+const userId = ''
+const apiKey = ''
 
 export const Flickr = {
 	getPhotosets() {
