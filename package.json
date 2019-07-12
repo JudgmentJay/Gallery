@@ -1,6 +1,6 @@
 {
 	"name": "flicker-gallery",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Flickr photo gallery",
 	"main": "index.js",
 	"private": true,
@@ -12,7 +12,7 @@
 		]
 	},
 	"scripts": {
-		"start": "webpack-dev-server --config webpack.dev.js --open",
+		"dev": "webpack-dev-server --config webpack.dev.js --open",
 		"build": "webpack --config webpack.prod.js"
 	},
 	"author": "Jay Posten",
@@ -24,9 +24,12 @@
 		"not op_mini all"
 	],
 	"dependencies": {
+		"classnames": "^2.2.6",
+		"lightbox-react": "^0.3.7",
 		"prop-types": "^15.7.2",
 		"react": "^16.8.6",
-		"react-dom": "^16.8.6"
+		"react-dom": "^16.8.6",
+		"react-lazyload": "^2.6.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.5.4",
@@ -51,7 +54,7 @@
 		"style-loader": "^0.23.1",
 		"stylelint": "^10.1.0",
 		"stylelint-config-recommended": "^2.2.0",
-		"stylelint-config-standard": "^18.3.0",
+		"stylelint-scss": "^3.9.1",
 		"webpack": "^4.35.3",
 		"webpack-cli": "^3.3.5",
 		"webpack-dev-server": "^3.7.2",

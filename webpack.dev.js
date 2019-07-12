@@ -10,8 +10,7 @@ module.exports = merge(common, {
 					'style-loader',
 					'css-loader',
 					'sass-loader'
-				],
-				include: /src/
+				]
 			},
 			{
 				test: /\.(png|jpe?g|gif|svg)$/,

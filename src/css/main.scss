@@ -1,69 +1,297 @@
-* {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+@import url('https://fonts.googleapis.com/css?family=PT+Serif|Raleway');
+
+@import './reset.scss';
+
+@mixin darkGreyBackground($transparency) {
+	background: rgba(34, 34, 34, $transparency);
 }
 
-html {
-	text-size-adjust: 100%;
-}
+$blue: rgba(0, 170, 255, 1);
+$headerHeight: 52px;
 
 body {
-	font-size: 62.5%;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-font-smoothing: antialiased;
-	line-height: 1;
+	color: #fff;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 400;
+
+	background: #000;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-size: inherit;
+.fade {
+	opacity: 0;
+
+	transition: opacity 0.5s;
+
+	&.fadeOut {
+		opacity: 0;
+	}
+
+	&.fadeIn {
+		opacity: 1;
+	}
+}
+
+header {
+	position: fixed;
+	z-index: 1;
+
+	width: 100%;
+	height: $headerHeight;
+
+	@include darkGreyBackground(1);
+	border-bottom: 1px solid #000;
+}
+
+h1 {
+	position: absolute;
+	top: 50%;
+	right: 20px;
+	transform: translateY(-50%);
+
+	font-family: 'PT Serif', serif;
+	font-size: 2em;
 	font-weight: 400;
 }
 
-article,
-aside,
-footer,
-header,
-nav,
-section {
-	display: block;
+h2 {
+	display: none;
 }
 
-ul,
-ol {
-	margin: 0 0 0 18px;
+#toggleSideBar {
+	position: absolute;
+	top: 50%;
+	left: 20px;
+	transform: translateY(-50%);
+
+	font-size: 3em;
+	text-transform: uppercase;
+
+	transition: color 0.25s;
+
+	&:before {
+		content: '+';
+
+		display: inline-block;
+		margin-right: 5px;
+
+		transition: transform 0.25s linear;
+	}
+
+	&.active {
+		color: $blue;
+
+		&:before {
+			transform: rotate(45deg);
+		}
+	}
 }
 
-img {
-	border: 0;
-	display: block;
-	max-width: 100%;
+#sideBar {
+	position: fixed;
+	top: calc(#{$headerHeight} - 1px);
+	left: 0;
+	transform: translateX(-100%);
+	z-index: 2;
+
+	width: 100%;
+	height: calc(100vh - #{$headerHeight});
+
+	color: #fff;
+
+	@include darkGreyBackground(0.95);
+	border-right: 2px solid #000;
+
+	transition: transform 0.25s;
+
+	&.visible {
+		transform: translateX(0);
+	}
 }
 
-a,
-button {
-	color: inherit;
+h3 {
+	padding: 20px;
+
+	font-size: 3em;
+	text-transform: uppercase;
+
+	span {
+		position: relative;
+
+		&:after {
+			content: '';
+
+			position: absolute;
+			bottom: 0;
+
+			display: block;
+			width: 100%;
+			height: 2px;
+
+			background: #fff;
+		}
+	}
 }
 
-a {
-	text-decoration: none;
+#filters {
+	margin: 0;
+
+	font-size: 2em;
+
+	list-style: none;
+
+	li {
+		transition: color 0.25s linear;
+
+		&.active {
+			color: $blue;
+		}
+
+		span {
+			display: block;
+			padding: 10px 20px;
+
+			cursor: pointer;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.1);
+			}
+		}
+	}
 }
 
-button {
-	background: none;
-	border: 0;
-	cursor: pointer;
-	font: inherit;
-	-webkit-font-smoothing: inherit;
-	letter-spacing: inherit;
-	overflow: visible;
+#gallery {
+	position: relative;
+	z-index: 0;
+
+	padding: $headerHeight 0 0 0;
+	overflow: hidden;
+
+	div {
+		position: relative;
+
+		height: calc(50vh - #{$headerHeight} / 2);
+		overflow: hidden;
+
+		background: #222;
+		border-bottom: 5px solid #000;
+
+		&:hover {
+			cursor: pointer;
+		}
+
+		img {
+			position: relative;
+			z-index: 0;
+
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.caption {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			z-index: 1;
+
+			display: block;
+			width: 100%;
+			padding: 20px 10px;
+
+			font-size: 1.6em;
+			text-align: center;
+
+			@include darkGreyBackground(0.9);
+		}
+	}
 }
 
-::-moz-focus-inner {
-	border: 0;
+@media screen and (min-width: 520px) {
+	header {
+		height: $headerHeight;
+	}
+
+	#gallery {
+		display: flex;
+		flex-wrap: wrap;
+		align-content: flex-start;
+
+		div {
+			flex-basis: 50%;
+
+			background: #222;
+			border: 2px solid #000;
+		}
+	}
+
+	#sideBar {
+		width: 50%;
+	}
+}
+
+@media screen and (min-width: 740px) {
+	h2 {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		display: block;
+
+		font-size: 3em;
+		text-transform: uppercase;
+	}
+
+	#gallery {
+		float: right;
+
+		width: 100%;
+		min-height: calc(100vh - #{$headerHeight});
+
+		transition: opacity 0.5s;
+
+		div {
+			flex-basis: 33.3333%;
+
+			height: calc(25vh - #{$headerHeight} / 4);
+
+			.caption {
+				transform: translateY(100%);
+
+				transition: transform 0.15s;
+			}
+
+			&:hover .caption {
+				transform: translateY(0);
+			}
+		}
+	}
+
+	#sideBar {
+		width: 33.3333%;
+	}
+}
+
+@media screen and (min-width: 960px) {
+	#gallery {
+		div {
+			flex-basis: 20%;
+		}
+	}
+
+	#sideBar {
+		width: 260px;
+	}
+}
+
+@media screen and (min-width: 1600px) {
+	#gallery div {
+		flex-basis: 12.5%;
+	}
+}
+
+@media screen and (min-width: 2000px) {
+	#sideBar {
+		width: 12.5%;
+	}
 }
