@@ -1,28 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import { ImagesContext } from '../context/images'
-import { GlobalContext } from '../context/global'
-
-const Header = () => {
-	const globalContext = useContext(GlobalContext)
-	const imagesContext = useContext(ImagesContext)
-
-	const {
-		sidebarIsOpen,
-		isVisible
-	} = globalContext
-
-	const header = imagesContext.header
-
-	const toggleSidebar = () => {
-		globalContext.dispatch({
-			type: 'TOGGLE_SIDEBAR'
-		})
-	}
-
-	const headerClasses = classNames({
-		'fade': true,
+const Header = ({
+	isVisible,
+	header,
+	sidebarIsOpen,
+	setSidebarIsOpen
+}) => {
+	const headerClasses = classNames('fade', {
 		'fadeIn': isVisible,
 		'fadeOut': !isVisible
 	})
@@ -36,9 +22,16 @@ const Header = () => {
 		<header>
 			<h1>Flickr Image Gallery</h1>
 			<h2 className={headerClasses}>{header}</h2>
-			<button className={buttonClasses} id="toggleSideBar" onClick={() => toggleSidebar()}>Menu</button>
+			<button className={buttonClasses} id="toggleSideBar" onClick={() => setSidebarIsOpen(!sidebarIsOpen)}>Menu</button>
 		</header>
 	)
+}
+
+Header.propTypes = {
+	isVisible: PropTypes.bool.isRequired,
+	header: PropTypes.string.isRequired,
+	sidebarIsOpen: PropTypes.bool.isRequired,
+	setSidebarIsOpen: PropTypes.func.isRequired
 }
 
 export default Header

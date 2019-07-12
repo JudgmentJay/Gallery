@@ -1,64 +1,40 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
-
-import { GlobalContext } from '../context/global'
-import { ImagesContext } from '../context/images'
 
 import { Flickr } from '../util/Flickr'
 
-const SideBar = () => {
-	const globalContext = useContext(GlobalContext)
-	const imagesContext = useContext(ImagesContext)
-
-	const sidebarIsOpen = globalContext.sidebarIsOpen
-
-	const {
-		photosets,
-		header
-	} = imagesContext
-
-	const toggleSidebar = () => {
-		globalContext.dispatch({
-			type: 'TOGGLE_SIDEBAR'
-		})
-	}
-
-	const getAllPhotos = () => {
-		globalContext.dispatch({
-			type: 'TOGGLE_VISIBILITY'
-		})
+const Sidebar = ({
+	setIsVisible,
+	photosets,
+	setPhotos,
+	header,
+	setHeader,
+	sidebarIsOpen,
+	setSidebarIsOpen
+}) => {
+	const getPhotos = (photoset) => {
+		setIsVisible(false)
 
 		setTimeout(() => {
-			Flickr.getPhotos().then(photos => {
-				imagesContext.dispatch({
-					type: 'SET_PHOTOS',
-					photos: photos,
-					header: 'All Photos'
+			if (typeof photoset === 'string') {
+				Flickr.getPhotos().then(photos => {
+					setHeader('All Photos')
+					setPhotos(photos)
 				})
-			})
-		}, 20)
-	}
-
-	const filterPhotos = (photoset) => {
-		globalContext.dispatch({
-			type: 'TOGGLE_VISIBILITY'
-		})
-
-		setTimeout(() => {
-			Flickr.filterPhotos(photoset.id).then(photos => {
-				imagesContext.dispatch({
-					type: 'SET_PHOTOS',
-					photos: photos,
-					header: photoset.title
+			} else {
+				Flickr.filterPhotos(photoset.id).then(photos => {
+					setHeader(photoset.title)
+					setPhotos(photos)
 				})
-			})
-		}, 20)
+			}
+		}, 500)
 	}
 
 	const photosetLinks = () => {
 		return photosets.map(photoset => {
 			return (
-				<li className={header === photoset.title ? 'active' : ''} onClick={() => filterPhotos(photoset)} key={photoset.title}><span>{photoset.title} ({photoset.number})</span></li>
+				<li className={photoset.title === header ? 'active' : ''} onClick={() => getPhotos(photoset)} key={photoset.title}><span>{photoset.title} ({photoset.number})</span></li>
 			)
 		})
 	}
@@ -68,14 +44,24 @@ const SideBar = () => {
 	})
 
 	return (
-		<div className={sidebarClasses} id="sideBar" onMouseLeave={() => sidebarIsOpen && toggleSidebar()}>
+		<div className={sidebarClasses} id="sideBar" onMouseLeave={() => sidebarIsOpen && setSidebarIsOpen(false)}>
 			<h3><span>Filters</span></h3>
 			<ul id="filters">
-				<li className={header === 'All Photos' ? 'active' : ''} onClick={() => getAllPhotos()}><span>All Photos</span></li>
+				<li className={header === 'All Photos' ? 'active' : ''} onClick={() => getPhotos('all')}><span>All Photos</span></li>
 				{photosetLinks()}
 			</ul>
 		</div>
 	)
 }
 
-export default SideBar
+Sidebar.propTypes = {
+	setIsVisible: PropTypes.func.isRequired,
+	photosets: PropTypes.array.isRequired,
+	setPhotos: PropTypes.func.isRequired,
+	header: PropTypes.string.isRequired,
+	setHeader: PropTypes.func.isRequired,
+	sidebarIsOpen: PropTypes.bool.isRequired,
+	setSidebarIsOpen: PropTypes.func.isRequired
+}
+
+export default Sidebar

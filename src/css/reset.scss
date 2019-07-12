@@ -1,7 +1,7 @@
 * {
-	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
@@ -40,9 +40,10 @@ ol {
 }
 
 img {
-	border: 0;
 	display: block;
 	max-width: 100%;
+
+	border: 0;
 }
 
 a,
@@ -55,13 +56,17 @@ a {
 }
 
 button {
-	background: none;
-	border: 0;
-	cursor: pointer;
+	overflow: visible;
+
 	font: inherit;
 	-webkit-font-smoothing: inherit;
 	letter-spacing: inherit;
-	overflow: visible;
+
+	background: none;
+	border: 0;
+	outline: none;
+
+	cursor: pointer;
 }
 
 ::-moz-focus-inner {
