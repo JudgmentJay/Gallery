@@ -1,8 +1,10 @@
 const { merge } = require('webpack-merge')
 const common = require('./webpack.common.js')
+
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const miniCSSExtractPluginLoader = {
 	loader: MiniCssExtractPlugin.loader,
@@ -24,29 +26,48 @@ const postCSSLoader = {
 	}
 }
 
+const cssModuleLoader = {
+	loader: 'css-loader',
+	options: {
+		modules: {
+			localIdentName: '[local]__[hash:base64:5]',
+		}
+	}
+}
+
 module.exports = merge(common, {
 	module: {
 		rules: [
 			{
-				test: /\.scss$/,
+				test: /\.s?css$/,
+				exclude: /\.module\.scss$/,
 				use: [
 					miniCSSExtractPluginLoader,
 					'css-loader',
 					postCSSLoader,
 					'sass-loader'
 				]
+			},
+			{
+				test: /\.module\.scss$/,
+				use: [
+					miniCSSExtractPluginLoader,
+					cssModuleLoader,
+					postCSSLoader,
+					'sass-loader'
+				],
+				include: /src/
 			}
 		]
 	},
 	mode: 'production',
-	devtool: false,
 	optimization: {
-		minimize: true,
 		minimizer: [
 			new TerserPlugin({
 				extractComments: false,
-			})
-		],
+			}),
+			new CssMinimizerPlugin()
+		]
 	},
 	plugins: [
 		new MiniCssExtractPlugin({

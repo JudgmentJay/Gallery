@@ -1,0 +1,25 @@
+@use '../../scss/variables.scss' as *;
+
+.gallery {
+	position: relative;
+	z-index: 0;
+
+	padding-top: $headerHeight;
+	overflow: hidden;
+}
+
+@media screen and (min-width: 520px) {
+	.gallery {
+		display: flex;
+		flex-wrap: wrap;
+		align-content: flex-start;
+	}
+}
+
+@media screen and (min-width: 740px) {
+	.gallery {
+		min-height: calc(100vh - #{$headerHeight});
+
+		transition: opacity 0.5s;
+	}
+}

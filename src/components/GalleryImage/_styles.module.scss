@@ -1,0 +1,82 @@
+@use '../../scss/variables.scss' as *;
+
+:global(.gallery-wrapper) {
+	position: relative;
+
+	height: calc(50vh - #{$headerHeight} / 2);
+	overflow: hidden;
+
+	background: #222;
+	border-bottom: 5px solid #000;
+
+	cursor: pointer;
+}
+
+.imageContainer {
+	width: 100%;
+	height: 100%;
+}
+
+.image {
+	position: relative;
+	z-index: 0;
+
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.caption {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+
+	display: block;
+	width: 100%;
+	padding: 20px 10px;
+
+	font-size: 1.6em;
+	text-align: center;
+
+	@include darkGreyBackground(0.9);
+}
+
+@media screen and (min-width: 520px) {
+	:global(.gallery-wrapper) {
+		flex-basis: 50%;
+
+		background: #222;
+		border: 2px solid #000;
+	}
+}
+
+@media screen and (min-width: 740px) {
+	:global(.gallery-wrapper) {
+		flex-basis: calc(100% / 3);
+
+		height: calc(25vh - #{$headerHeight} / 4);
+
+		&:hover .caption {
+			transform: translateY(0);
+		}
+	}
+
+	.caption {
+		transform: translateY(100%);
+
+		transition: transform 0.15s;
+	}
+}
+
+@media screen and (min-width: 960px) {
+	:global(.gallery-wrapper) {
+		flex-basis: 20%;
+	}
+}
+
+@media screen and (min-width: 1600px) {
+	:global(.gallery-wrapper) {
+		flex-basis: 12.5%;
+	}
+}

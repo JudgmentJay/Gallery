@@ -1,0 +1,6 @@
+@mixin darkGreyBackground($transparency) {
+	background: rgba(34, 34, 34, $transparency);
+}
+
+$blue: rgba(0, 170, 255, 1);
+$headerHeight: 52px;

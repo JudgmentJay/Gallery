@@ -1,0 +1,5 @@
+export { default as Gallery } from './Gallery/Gallery.jsx'
+export { default as GalleryImage } from './GalleryImage/GalleryImage.jsx'
+export { default as Header } from './Header/Header.jsx'
+export { default as Modal } from './Modal/Modal.jsx'
+export { default as SideBar } from './SideBar/SideBar.jsx'

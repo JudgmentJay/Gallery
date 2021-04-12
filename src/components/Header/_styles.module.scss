@@ -1,0 +1,70 @@
+@use '../../scss/variables.scss' as *;
+
+.headerBar {
+	position: fixed;
+	z-index: 1;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: $headerHeight;
+	padding: 0 20px;
+
+	@include darkGreyBackground(1);
+	border-bottom: 1px solid #000;
+}
+
+.header {
+	order: 2;
+
+	font-family: 'PT Serif', serif;
+	font-size: 2em;
+	font-weight: 400;
+}
+
+.subHeader {
+	display: none;
+	order: 1;
+}
+
+.toggleSideBar {
+	order: 0;
+
+	font-size: 3em;
+	text-transform: uppercase;
+
+	transition: color 0.25s;
+
+	&:before {
+		content: '+';
+
+		display: inline-block;
+		margin-right: 5px;
+
+		transition: transform 0.25s linear;
+	}
+
+	&.is-active {
+		color: $blue;
+
+		&:before {
+			transform: rotate(45deg);
+		}
+	}
+}
+
+@media screen and (min-width: 520px) {
+	.headerBar {
+		height: $headerHeight;
+	}
+}
+
+@media screen and (min-width: 740px) {
+	.subHeader {
+		display: block;
+
+		font-size: 3em;
+		text-transform: uppercase;
+	}
+}

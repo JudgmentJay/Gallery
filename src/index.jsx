@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
-import { Flickr } from './util/Flickr'
+import {
+	getPhotos,
+	getPhotosets
+} from './util/flickr'
 
-import Header from './components/Header'
-import Sidebar from './components/Sidebar'
-import Gallery from './components/Gallery'
+import {
+	Gallery,
+	Header,
+	Modal,
+	SideBar
+} from './components'
 
-import './css/main.scss'
+import './scss/globals.scss'
 
 const FlickrGallery = () => {
 	const [isVisible, setIsVisible] = useState(false)
@@ -15,18 +21,17 @@ const FlickrGallery = () => {
 	const [photos, setPhotos] = useState([])
 	const [header, setHeader] = useState('All Photos')
 	const [sidebarIsOpen, setSidebarIsOpen] = useState(false)
+	const [modalData, setModalData] = useState({ isOpen: false, startingIndex: 0 })
 
 	useEffect(() => {
-		Flickr.getPhotos().then(photos => {
-			Flickr.getPhotosets().then(photosets => {
-				setPhotosets(photosets)
-				setPhotos(photos)
-			})
-		})
+		getPhotos().then((photos) => setPhotos(photos))
+		getPhotosets().then((photosets) => setPhotosets(photosets))
 	}, [])
 
 	useEffect(() => {
-		setIsVisible(true)
+		if (photos.length > 0) {
+			setIsVisible(true)
+		}
 	}, [photos])
 
 	return (
@@ -37,7 +42,7 @@ const FlickrGallery = () => {
 				sidebarIsOpen={sidebarIsOpen}
 				setSidebarIsOpen={setSidebarIsOpen} />
 			{ Boolean(photosets.length > 0) &&
-				<Sidebar
+				<SideBar
 					setIsVisible={setIsVisible}
 					photosets={photosets}
 					setPhotos={setPhotos}
@@ -49,7 +54,14 @@ const FlickrGallery = () => {
 			{ Boolean(photos.length > 0) &&
 				<Gallery
 					isVisible={isVisible}
-					photos={photos} />
+					photos={photos}
+					setModalData={setModalData} />
+			}
+			{ modalData.isOpen &&
+				<Modal
+					photos={photos}
+					startingIndex={modalData.startingIndex}
+					setModalData={setModalData} />
 			}
 		</React.Fragment>
 	)
