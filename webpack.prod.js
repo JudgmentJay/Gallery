@@ -4,33 +4,36 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
+const miniCSSExtractPluginLoader = {
+	loader: MiniCssExtractPlugin.loader,
+	options: {
+		publicPath: '../'
+	}
+}
+
+const postCSSLoader = {
+	loader: 'postcss-loader',
+	options: {
+		postcssOptions: {
+			plugins: [
+				[
+					'autoprefixer'
+				]
+			]
+		}
+	}
+}
+
 module.exports = merge(common, {
 	module: {
 		rules: [
 			{
-				test: /\.s?css$/,
+				test: /\.scss$/,
 				use: [
-					{
-						loader: MiniCssExtractPlugin.loader,
-						options: {
-							publicPath: '../'
-						}
-					},
+					miniCSSExtractPluginLoader,
 					'css-loader',
-					'postcss-loader',
+					postCSSLoader,
 					'sass-loader'
-				]
-			},
-			{
-				test: /\.(jpe?g|png|gif|svg|webp)$/,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							name: '[name].[ext]',
-							outputPath: 'img'
-						}
-					}
 				]
 			}
 		]

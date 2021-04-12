@@ -1,27 +1,31 @@
 {
 	"name": "flicker-gallery",
-	"version": "1.2.0",
+	"version": "1.3.0",
 	"description": "Flickr photo gallery",
-	"main": "index.js",
+	"homepage": "https://github.com/JudgmentJay/gallery",
+	"license": "UNLICENSED",
 	"private": true,
-	"homepage": "/gallery",
+	"author": {
+		"name": "Jay Posten",
+		"email": "jdposten@gmail.com",
+		"url": "https://www.jayposten.com/"
+	},
+	"main": "index.js",
+	"scripts": {
+		"dev": "webpack serve --config webpack.dev.js --open",
+		"build": "webpack --config webpack.prod.js"
+	},
 	"babel": {
 		"presets": [
 			"@babel/preset-env",
 			"@babel/preset-react"
 		]
 	},
-	"scripts": {
-		"dev": "webpack serve --config webpack.dev.js --open",
-		"build": "webpack --config webpack.prod.js"
-	},
-	"author": "Jay Posten",
-	"license": "UNLICENSED",
 	"browserslist": [
 		"defaults"
 	],
 	"dependencies": {
-		"classnames": "^2.2.6",
+		"classnames": "^2.3.1",
 		"lightbox-react": "^0.3.8",
 		"prop-types": "^15.7.2",
 		"react": "^17.0.1",
@@ -29,31 +33,25 @@
 		"react-lazyload": "^3.2.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.13.10",
-		"@babel/preset-env": "^7.13.10",
-		"@babel/preset-react": "^7.12.13",
+		"@babel/core": "^7.13.15",
+		"@babel/preset-env": "^7.13.15",
+		"@babel/preset-react": "^7.13.13",
 		"autoprefixer": "^10.2.5",
-		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.2.2",
 		"clean-webpack-plugin": "^3.0.0",
-		"css-loader": "^5.1.2",
-		"cssnano": "^4.1.10",
-		"eslint": "^7.21.0",
+		"css-loader": "^5.2.1",
+		"eslint": "^7.24.0",
 		"eslint-plugin-compat": "^3.9.0",
-		"eslint-plugin-react": "^7.22.0",
+		"eslint-plugin-react": "^7.23.2",
 		"eslint-plugin-react-hooks": "^4.2.0",
-		"file-loader": "^6.2.0",
 		"html-webpack-plugin": "^5.3.1",
-		"mini-css-extract-plugin": "^1.3.9",
-		"node-sass": "^5.0.0",
-		"postcss-loader": "^5.1.0",
+		"mini-css-extract-plugin": "^1.4.1",
+		"postcss-loader": "^5.2.0",
+		"sass": "^1.32.8",
 		"sass-loader": "^11.0.1",
 		"style-loader": "^2.0.0",
-		"stylelint": "^13.12.0",
-		"stylelint-config-recommended": "^4.0.0",
-		"stylelint-scss": "^3.19.0",
-		"webpack": "^5.24.4",
-		"webpack-cli": "^4.5.0",
+		"webpack": "^5.31.2",
+		"webpack-cli": "^4.6.0",
 		"webpack-dev-server": "^3.11.2",
 		"webpack-merge": "^5.7.3"
 	}
