@@ -34,5 +34,9 @@ module.exports = merge(common, {
 		]
 	},
 	mode: 'development',
-	devtool: false
+	devServer: {
+		proxy: {
+			'/flickr': 'http://localhost:3000'
+		}
+	}
 })
